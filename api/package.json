@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "dev": "nodemon app.js",
+    "dev": "nodemon server.js",
     "load": "npm run loadData && npm run loadIndexes",
     "loadData": "node load-data.js",
     "loadIndexes": "node load-indexes.js"
@@ -19,6 +19,7 @@
     "cors": "^2.8.4",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
+    "node-http-error": "^2.0.0",
     "nodemon": "^1.18.3",
     "pouchdb-adapter-http": "^7.0.0",
     "pouchdb-core": "^7.0.0",
