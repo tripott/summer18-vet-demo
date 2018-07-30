@@ -31,6 +31,8 @@ const putResource = resource => {
   return db.put(resource)
 }
 
+const deleteResource = resource => db.remove(resource)
+
 const getCategories = () =>
   getAllDocs(db, {
     include_docs: true,
@@ -43,5 +45,6 @@ module.exports = {
   getCategories,
   postResource,
   putResource,
-  getResource
+  getResource,
+  deleteResource
 }

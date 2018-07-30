@@ -3,7 +3,8 @@ const {
   getResources,
   getResource,
   postResource,
-  putResource
+  putResource,
+  deleteResource
 } = require('../dal')
 const bodyParser = require('body-parser')
 const { propOr, isEmpty, not, concat, pathOr } = require('ramda')
@@ -121,6 +122,13 @@ const resourcesRoutes = app => {
         res.status(200).send(result)
       })
       .catch(err => new NodeHTTPError(err.status, err.message, err))
+  })
+
+  app.delete('/resources', bodyParser.json(), (req, res, next) => {
+    const resource = propOr({}, 'body', req)
+    deleteResource(resource)
+      .then(result => res.status(200).send(result))
+      .catch(err => next(new NodeHTTPError(err.status, err.message, err)))
   })
 }
 
