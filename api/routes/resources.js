@@ -1,25 +1,24 @@
-const NodeHTTPError = require("node-http-error")
-const { getResources, postResource } = require("../dal")
-const bodyParser = require("body-parser")
-const { propOr, isEmpty, not } = require("ramda")
-const checkReqFields = require("../lib/check-required-fields")
-const missingFieldMsg = require("../lib/missing-field-msg")
-const cleanObj = require("../lib/clean-object")
+const NodeHTTPError = require('node-http-error')
+const { getResources, postResource } = require('../dal')
+const bodyParser = require('body-parser')
+const { propOr, isEmpty, not } = require('ramda')
+const checkReqFields = require('../lib/check-required-fields')
+const missingFieldMsg = require('../lib/missing-field-msg')
+const cleanObj = require('../lib/clean-object')
 
 const reqFields = [
-  "categoryId",
-  "name",
-  "formalName",
-  "shortDesc",
-  "purpose",
-  "website",
-  "desc"
+  'categoryId',
+  'name',
+  'formalName',
+  'shortDesc',
+  'purpose',
+  'website'
 ]
 
 const resourcesRoutes = app => {
-  app.get("/", (req, res) => res.send("Welcome to the VET API"))
+  app.get('/', (req, res) => res.send('Welcome to the VET API'))
 
-  app.get("/resources", (req, res, next) => {
+  app.get('/resources', (req, res, next) => {
     // console.log("inside server.js hit /resources route")
 
     getResources()
@@ -29,14 +28,14 @@ const resourcesRoutes = app => {
       })
   })
 
-  app.post("/resources", bodyParser.json(), (req, res, next) => {
-    const newResource = propOr({}, "body", req)
+  app.post('/resources', bodyParser.json(), (req, res, next) => {
+    const newResource = propOr({}, 'body', req)
     // console.log(JSON.stringify(newResource))
     if (isEmpty(newResource)) {
       next(
         new NodeHTTPError(
-          500,
-          "No valid JSON document was provided in the request body."
+          400,
+          'No valid JSON document was provided in the request body.'
         )
       )
       return
@@ -47,7 +46,7 @@ const resourcesRoutes = app => {
     //console.log(not(isEmpty(missingFields)))
     if (not(isEmpty(missingFields))) {
       //console.log(missingFieldMsg(missingFields))
-      next(new NodeHTTPError(500, missingFieldMsg(missingFields)))
+      next(new NodeHTTPError(400, missingFieldMsg(missingFields)))
       return
     }
     const cleanResource = cleanObj(reqFields, newResource)
