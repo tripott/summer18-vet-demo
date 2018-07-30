@@ -16,6 +16,8 @@ const getResources = () =>
     endkey: 'resource_\ufff0'
   })
 
+const getResource = id => db.get(id)
+
 const postResource = resource => {
   //console.log(JSON.stringify(resource))
   const modifiedResource = merge(resource, {
@@ -40,5 +42,6 @@ module.exports = {
   getResources,
   getCategories,
   postResource,
-  putResource
+  putResource,
+  getResource
 }

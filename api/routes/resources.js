@@ -1,7 +1,12 @@
 const NodeHTTPError = require('node-http-error')
-const { getResources, postResource, putResource } = require('../dal')
+const {
+  getResources,
+  getResource,
+  postResource,
+  putResource
+} = require('../dal')
 const bodyParser = require('body-parser')
-const { propOr, isEmpty, not, concat } = require('ramda')
+const { propOr, isEmpty, not, concat, pathOr } = require('ramda')
 const checkReqFields = require('../lib/check-required-fields')
 const missingFieldMsg = require('../lib/missing-field-msg')
 const cleanObj = require('../lib/clean-object')
@@ -36,6 +41,15 @@ const resourcesRoutes = app => {
 
     getResources()
       .then(resources => res.send(resources))
+      .catch(err => {
+        next(new NodeHTTPError(err.status, err.message, err))
+      })
+  })
+
+  app.get('/resources/:id', (req, res, next) => {
+    const resourceId = pathOr('', ['params', 'id'], req)
+    getResource(resourceId)
+      .then(resource => res.status(200).send(resource))
       .catch(err => {
         next(new NodeHTTPError(err.status, err.message, err))
       })
