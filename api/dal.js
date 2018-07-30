@@ -17,11 +17,12 @@ const getResources = () =>
   })
 
 const postResource = resource => {
+  //console.log(JSON.stringify(resource))
   const modifiedResource = merge(resource, {
     _id: pkGenResource(resource),
     type: "resource"
   })
-  db.put(modifiedResource)
+  return db.put(modifiedResource)
 }
 
 const getCategories = () =>

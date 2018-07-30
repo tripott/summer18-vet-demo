@@ -20,7 +20,7 @@ const resourcesRoutes = app => {
   app.get("/", (req, res) => res.send("Welcome to the VET API"))
 
   app.get("/resources", (req, res, next) => {
-    console.log("inside server.js hit /resources route")
+    // console.log("inside server.js hit /resources route")
 
     getResources()
       .then(resources => res.send(resources))
@@ -31,6 +31,7 @@ const resourcesRoutes = app => {
 
   app.post("/resources", bodyParser.json(), (req, res, next) => {
     const newResource = propOr({}, "body", req)
+    // console.log(JSON.stringify(newResource))
     if (isEmpty(newResource)) {
       next(
         new NodeHTTPError(
@@ -40,14 +41,22 @@ const resourcesRoutes = app => {
       )
       return
     }
+    // console.log("new", newResource)
     const missingFields = checkReqFields(reqFields, newResource)
+    //console.log(missingFields)
+    //console.log(not(isEmpty(missingFields)))
     if (not(isEmpty(missingFields))) {
+      //console.log(missingFieldMsg(missingFields))
       next(new NodeHTTPError(500, missingFieldMsg(missingFields)))
       return
     }
     const cleanResource = cleanObj(reqFields, newResource)
+    //console.log("clean", cleanResource)
     postResource(cleanResource)
-      .then(result => res.status(201).send(result))
+      .then(result => {
+        console.log({ result })
+        res.status(201).send(result)
+      })
       .catch(err => new NodeHTTPError(err.status, err.message, err))
   })
 }
