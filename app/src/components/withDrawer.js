@@ -8,6 +8,8 @@ import HomeIcon from "@material-ui/icons/Home"
 import StarIcon from "@material-ui/icons/Star"
 import DraftsIcon from "@material-ui/icons/Drafts"
 import { Link } from "react-router-dom"
+import { connect } from "react-redux"
+import { DRAWER_TOGGLED } from "../constants"
 
 const VeteranListItems = (
   <div>
@@ -27,7 +29,7 @@ const withDrawer = function(PageComponent) {
     return (
       <div>
         <PageComponent {...props} />
-        <Drawer open={true}>
+        <Drawer open={props.open} onClose={props.toggleDrawer}>
           <div tabIndex={0} role="button">
             {VeteranListItems}
           </div>
@@ -36,7 +38,24 @@ const withDrawer = function(PageComponent) {
     )
   }
 
-  return WrappedDrawerPageComponent
+  const mapStateToProps = state => {
+    return { open: state.drawer.open }
+  }
+  const mapActionsToProps = dispatch => {
+    return {
+      toggleDrawer: () => {
+        console.log("FIRE!!!")
+        dispatch({ type: DRAWER_TOGGLED })
+      }
+    }
+  }
+
+  const connector = connect(
+    mapStateToProps,
+    mapActionsToProps
+  )
+
+  return connector(WrappedDrawerPageComponent)
 }
 
 export default withDrawer
