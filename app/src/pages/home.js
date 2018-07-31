@@ -1,6 +1,7 @@
 import React from "react"
 import Typography from "@material-ui/core/Typography"
 import Button from "@material-ui/core/Button"
+import withDrawer from "../components/withDrawer"
 
 const Home = () => (
   <div style={{ padding: 48 }}>
@@ -20,4 +21,4 @@ const Home = () => (
   </div>
 )
 
-export default Home
+export default withDrawer(Home)
