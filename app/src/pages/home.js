@@ -2,9 +2,15 @@ import React from "react"
 import Typography from "@material-ui/core/Typography"
 import Button from "@material-ui/core/Button"
 import withDrawer from "../components/withDrawer"
+import MenuAppBar from "../components/menuAppBar"
 
 const Home = () => (
-  <div style={{ padding: 48 }}>
+  <div
+    style={{
+      padding: 75
+    }}
+  >
+    <MenuAppBar title="Home" />
     <center>
       <img alt="home icon" src="/tcvsn-ico.png" />
       <div style={{ paddingTop: 12 }}>

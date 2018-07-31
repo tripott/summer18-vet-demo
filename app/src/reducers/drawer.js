@@ -2,7 +2,7 @@ import { DRAWER_TOGGLED } from "../constants"
 
 export const drawer = (
   state = {
-    open: true
+    open: false
   },
   action
 ) => {
