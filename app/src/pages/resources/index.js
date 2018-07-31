@@ -1,7 +1,6 @@
 import React from 'react'
 import { map } from 'ramda'
 import { connect } from 'react-redux'
-import { SET_RESOURCES } from '../../constants'
 import List from '@material-ui/core/List'
 import MenuAppBar from '../../components/menuAppBar'
 import withDrawer from '../../components/withDrawer'

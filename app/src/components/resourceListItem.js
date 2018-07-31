@@ -8,7 +8,7 @@ import Avatar from '@material-ui/core/Avatar'
 import { head } from 'ramda'
 
 const ResourceListItem = resource => (
-  <div>
+  <div key={resource._id}>
     <ListItem button>
       <ListItemIcon>
         <Avatar>{head(resource.name)}</Avatar>
