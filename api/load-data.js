@@ -5,6 +5,7 @@ PouchDB.plugin(require("pouchdb-adapter-http"));
 const COUCHDB_SERVER = process.env.COUCHDB_SERVER;
 const COUCHDB_DBNAME = process.env.COUCHDB_DBNAME;
 const DB_URL = `${COUCHDB_SERVER}${COUCHDB_DBNAME}`;
+console.log("HERE", COUCHDB_SERVER);
 
 const db = new PouchDB(DB_URL);
 
