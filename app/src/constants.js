@@ -1,1 +1,3 @@
-export const DRAWER_TOGGLED = "DRAWER_TOGGLED"
+export const DRAWER_TOGGLED = 'DRAWER_TOGGLED'
+
+export const SET_RESOURCES = 'SET_RESOURCES'
