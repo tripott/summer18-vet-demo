@@ -2,17 +2,23 @@ require("dotenv").config();
 const PORT = process.env.PORT;
 const app = require("express")();
 
+const bodyParser = require("body-parser");
+
 const resources = require("./routes/resources");
 const categories = require("./routes/categories");
+
+app.use(bodyParser.json());
 
 resources(app);
 categories(app);
 
 app.use((err, req, res, next) => {
-  res.status(err.status || 500).send(err.message);
+  console.log("error", err);
   next(err);
 });
 
-app.use((err, req, res, next) => console.log("error", err.msg));
+app.use((err, req, res, next) => {
+  res.status(err.status || 500).send(err.message);
+});
 
 app.listen(PORT || 5000, () => console.log("UP on ", PORT || 5000));
