@@ -1,26 +1,48 @@
+<<<<<<< HEAD
 const NodeHTTPError = require("node-http-error");
+=======
+const NodeHTTPError = require('node-http-error')
+>>>>>>> categories
 const {
   getCategory,
   getCategories,
   addCategory,
   updateCategory,
   deleteCategory
+<<<<<<< HEAD
 } = require("../dal");
 const { pathOr, propOr, isEmpty, not } = require("ramda");
 const cleanObj = require("../library/cleanObj");
 const checkRequiredCategoryFields = require("../library/checkRequiredCategoryFields");
+=======
+} = require('../dal')
+const { pathOr, propOr, isEmpty, not } = require('ramda')
+const cleanObj = require('../library/cleanObj')
+const checkRequiredCategoryFields = require('../library/checkRequiredCategoryFields')
+>>>>>>> categories
 
 const categoriesRoutes = app => {
-  app.get("/", (req, res) => res.send("Welcome to the VET API"));
+  app.get('/', (req, res) => res.send('Welcome to the VET API'))
 
-  app.get("/categories", (req, res, next) => {
+  app.get('/categories', (req, res, next) => {
+    const query = pathOr('', ['query', 'filter'], req)
+
+    getCategory(query)
+      .then(category => res.send(category))
+      .catch(err => {
+        next(new NodeHTTPError(err.status, err.message, err))
+      })
+  })
+
+  app.get('/categories', (req, res, next) => {
     getCategories()
       .then(resources => res.send(resources))
       .catch(err => {
-        next(new NodeHTTPError(err.status, err.message, err));
-      });
-  });
+        next(new NodeHTTPError(err.status, err.message, err))
+      })
+  })
 
+<<<<<<< HEAD
   app.get("/categories/:id", (req, res, next) => {
     const categoryId = pathOr("", ["params", "id"], req);
     getCategory(categoryId)
@@ -32,27 +54,41 @@ const categoriesRoutes = app => {
 
   app.post("/categories", (req, res, next) => {
     const newCategory = propOr({}, "body", req);
+=======
+  app.get('/categories/:id', (req, res, next) => {
+    const categoryId = pathOr('', ['params', 'id'], req)
+    getCategory(categoryId)
+      .then(category => res.status(200).send(category))
+      .catch(err => {
+        next(new NodeHTTPError(err.status, err.message, err))
+      })
+  })
+
+  app.post('/categories', (req, res, next) => {
+    const newCategory = propOr({}, 'body', req)
+>>>>>>> categories
 
     const missingFields = checkRequiredCategoryFields(
-      ["name", "shortDesc", "desc", "icon"],
+      ['name', 'shortDesc', 'desc', 'icon'],
       newCategory
-    );
+    )
 
     if (not(isEmpty(missingFields))) {
       next(
         new NodeHTTPError(400, `missing the following fields: ${missingFields}`)
-      );
+      )
     }
     const finalObj = cleanObj(
-      ["name", "shortDesc", "desc", "icon"],
+      ['name', 'shortDesc', 'desc', 'icon'],
       newCategory
-    );
+    )
     addCategory(finalObj)
       .then(addResult => {
-        console.log(addResult);
-        res.status(201).send(addResult);
+        console.log(addResult)
+        res.status(201).send(addResult)
       })
       .catch(err => {
+<<<<<<< HEAD
         next(new NodeHTTPError(err.status, err.message, err));
       });
   });
@@ -64,10 +100,24 @@ const categoriesRoutes = app => {
       ["_id", "type", "_rev", "name", "shortDesc", "desc", "icon"],
       newCategory
     );
+=======
+        next(new NodeHTTPError(err.status, err.message, err))
+      })
+  })
+
+  app.put('/categories/:id', (req, res, next) => {
+    const newCategory = propOr({}, 'body', req)
+
+    const missingFields = checkRequiredCategoryFields(
+      ['_id', 'type', '_rev', 'name', 'shortDesc', 'desc', 'icon'],
+      newCategory
+    )
+>>>>>>> categories
 
     if (not(isEmpty(missingFields))) {
       next(
         new NodeHTTPError(400, `missing the following fields: ${missingFields}`)
+<<<<<<< HEAD
       );
     }
     const finalObj = cleanObj(
@@ -91,5 +141,30 @@ const categoriesRoutes = app => {
       .catch(err => next(new NodeHTTPError(err.status, err.message, err)));
   });
 };
+=======
+      )
+    }
+    const finalObj = cleanObj(
+      ['_id', 'type', '_rev', 'name', 'shortDesc', 'desc', 'icon'],
+      newCategory
+    )
+    updateCategory(finalObj)
+      .then(addResult => {
+        console.log(addResult)
+        res.status(201).send(addResult)
+      })
+      .catch(err => {
+        next(new NodeHTTPError(err.status, err.message, err))
+      })
+  })
 
-module.exports = categoriesRoutes;
+  app.delete('/categories/:id', (req, res, next) => {
+    const category = propOr({}, 'body', req)
+    deleteCategory(category)
+      .then(result => res.status(200).send(result))
+      .catch(err => next(new NodeHTTPError(err.status, err.message, err)))
+  })
+}
+>>>>>>> categories
+
+module.exports = categoriesRoutes
