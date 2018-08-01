@@ -1,15 +1,16 @@
-import React from "react"
-import Drawer from "@material-ui/core/Drawer"
-import Divider from "@material-ui/core/Divider"
-import ListItem from "@material-ui/core/ListItem"
-import ListItemIcon from "@material-ui/core/ListItemIcon"
-import ListItemText from "@material-ui/core/ListItemText"
-import HomeIcon from "@material-ui/icons/Home"
-import StarIcon from "@material-ui/icons/Star"
-import DraftsIcon from "@material-ui/icons/Drafts"
-import { Link } from "react-router-dom"
-import { connect } from "react-redux"
-import { DRAWER_TOGGLED } from "../constants"
+import React from 'react'
+import Drawer from '@material-ui/core/Drawer'
+import Divider from '@material-ui/core/Divider'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import ListItemText from '@material-ui/core/ListItemText'
+import HomeIcon from '@material-ui/icons/Home'
+import InboxIcon from '@material-ui/icons/Inbox'
+import StarIcon from '@material-ui/icons/Star'
+import DraftsIcon from '@material-ui/icons/Drafts'
+import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { DRAWER_TOGGLED } from '../constants'
 
 const VeteranListItems = (
   <div>
@@ -19,6 +20,21 @@ const VeteranListItems = (
           <HomeIcon />
         </ListItemIcon>
         <ListItemText primary="Home" />
+      </ListItem>
+    </Link>
+
+    <Link to="/categories" className="router-link">
+      <ListItem button>
+        <ListItemText primary="Categories" />
+        </ListItem>
+    </Link>
+
+    <Link to="/resources" className="router-link">
+      <ListItem button>
+        <ListItemIcon>
+          <InboxIcon />
+        </ListItemIcon>
+        <ListItemText primary="Resources" />
       </ListItem>
     </Link>
   </div>
@@ -44,7 +60,7 @@ const withDrawer = function(PageComponent) {
   const mapActionsToProps = dispatch => {
     return {
       toggleDrawer: () => {
-        console.log("FIRE!!!")
+        console.log('FIRE!!!')
         dispatch({ type: DRAWER_TOGGLED })
       }
     }

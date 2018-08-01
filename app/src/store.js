@@ -1,7 +1,13 @@
-import { createStore, combineReducers, applyMiddleware } from "redux"
-import { drawer } from "./reducers/drawer"
-import thunk from "redux-thunk"
+import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { drawer } from './reducers/drawer'
+import { categories, currentCategory } from "./reducers/categories";
+import { resources, currentResource } from './reducers/resources'
+import thunk from 'redux-thunk'
+import { fetching } from './reducers/fetching'
 
-const store = createStore(combineReducers({ drawer }), applyMiddleware(thunk))
+const store = createStore(
+  combineReducers({ drawer, resources, currentResource, fetching, categories, currentCategory }),
+  applyMiddleware(thunk)
+)
 
-export default store
+export default store;

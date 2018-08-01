@@ -7,8 +7,8 @@ const {
   deleteCategory
 } = require('../dal')
 const { pathOr, propOr, isEmpty, not } = require('ramda')
-const cleanObj = require('../library/cleanObj')
-const checkRequiredCategoryFields = require('../library/checkRequiredCategoryFields')
+const cleanObj = require('../lib/cleanObj')
+const checkRequiredCategoryFields = require('../lib/checkRequiredCategoryFields')
 
 const categoriesRoutes = app => {
   app.get('/', (req, res) => res.send('Welcome to the VET API'))
