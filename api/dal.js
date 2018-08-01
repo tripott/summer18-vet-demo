@@ -105,16 +105,13 @@ const getEvents = query =>
 
 const getEvent = id => db.get(id)
 
-const addEvent = doc => {
-  console.log("doc", doc)
-
-  return db.put(
+const addEvent = doc =>
+  db.put(
     merge(doc, {
       type: "event",
       _id: pkGen("event_", prop("name", doc))
     })
   )
-}
 
 module.exports = {
   getResources,
