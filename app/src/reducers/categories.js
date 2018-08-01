@@ -1,10 +1,19 @@
-import { SET_CATEGORIES } from '../constants'
+import { SET_CATEGORIES, GET_CATEGORY } from "../constants";
 
 export const categories = (state = [], action) => {
   switch (action.type) {
     case SET_CATEGORIES:
-      return action.payload
+      return action.payload;
     default:
-      return state
+      return state;
   }
-}
+};
+
+export const currentCategory = (state = {}, action) => {
+  switch (action.type) {
+    case GET_CATEGORY:
+      return action.payload;
+    default:
+      return state;
+  }
+};
