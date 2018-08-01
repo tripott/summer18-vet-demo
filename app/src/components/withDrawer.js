@@ -21,6 +21,14 @@ const VeteranListItems = (
         <ListItemText primary="Home" />
       </ListItem>
     </Link>
+    <Link to="/events/new" className="router-link">
+      <ListItem button>
+        <ListItemIcon>
+          <StarIcon />
+        </ListItemIcon>
+        <ListItemText primary="Add Event" />
+      </ListItem>
+    </Link>
   </div>
 )
 
@@ -44,7 +52,6 @@ const withDrawer = function(PageComponent) {
   const mapActionsToProps = dispatch => {
     return {
       toggleDrawer: () => {
-        console.log("FIRE!!!")
         dispatch({ type: DRAWER_TOGGLED })
       }
     }
