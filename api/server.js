@@ -5,7 +5,9 @@ const bodyParser = require("body-parser")
 const resources = require("./routes/resources")
 const categories = require("./routes/categories")
 const events = require("./routes/events")
+const cors = require("cors")
 
+app.use(cors({ credentials: true }))
 app.use(bodyParser.json())
 
 resources(app)

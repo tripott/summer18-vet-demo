@@ -29,7 +29,7 @@ const eventRoutes = app => {
 
   app.post("/events", bodyParser.json(), (req, res, next) => {
     const newResource = propOr({}, "body", req)
-    // console.log(JSON.stringify(newResource))
+    console.log(JSON.stringify({ newResource }))
     if (isEmpty(newResource)) {
       next(
         new NodeHTTPError(
