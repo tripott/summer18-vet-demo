@@ -3,6 +3,7 @@ import './App.css'
 import { Switch, BrowserRouter, Route } from 'react-router-dom'
 import Home from './pages/home'
 import Resources from './pages/resources'
+import ViewResource from './pages/resources/view'
 
 class App extends Component {
   render() {
@@ -11,6 +12,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/resources" component={Resources} />
+          <Route exact path="/resources/:id" component={ViewResource} />
         </Switch>
       </BrowserRouter>
     )

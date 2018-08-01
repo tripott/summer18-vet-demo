@@ -6,18 +6,21 @@ import Typography from '@material-ui/core/Typography'
 import Divider from '@material-ui/core/Divider'
 import Avatar from '@material-ui/core/Avatar'
 import { head } from 'ramda'
+import { Link } from 'react-router-dom'
 
 const ResourceListItem = resource => (
   <div key={resource._id}>
-    <ListItem button>
-      <ListItemIcon>
-        <Avatar>{head(resource.name)}</Avatar>
-      </ListItemIcon>
-      <ListItemText>
-        <Typography variant="headline">{resource.name}</Typography>
-        <Typography variant="caption">{resource.shortDesc}</Typography>
-      </ListItemText>
-    </ListItem>
+    <Link to={`/resources/${resource._id}`} className="router-link">
+      <ListItem button>
+        <ListItemIcon>
+          <Avatar>{head(resource.name)}</Avatar>
+        </ListItemIcon>
+        <ListItemText>
+          <Typography variant="headline">{resource.name}</Typography>
+          <Typography variant="caption">{resource.shortDesc}</Typography>
+        </ListItemText>
+      </ListItem>
+    </Link>
     <Divider />
   </div>
 )
