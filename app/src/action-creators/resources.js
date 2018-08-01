@@ -1,8 +1,6 @@
 import { SET_RESOURCES, GET_CURRENT_RESOURCE } from '../constants'
 import fetch from 'isomorphic-fetch'
-require('dotenv').config()
-const url = process.env.REACT_APP_RESOURCES_API_URL
-alert(JSON.stringify(process.env))
+const url = process.env.REACT_APP_BASE_URL + '/resources'
 
 export const getResources = async (dispatch, getState) => {
   const resources = await fetch(url)

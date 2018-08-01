@@ -1,16 +1,17 @@
-import React from "react"
-import AppBar from "@material-ui/core/AppBar"
-import Toolbar from "@material-ui/core/Toolbar"
-import Typography from "@material-ui/core/Typography"
-import IconButton from "@material-ui/core/IconButton"
-import MenuIcon from "@material-ui/icons/Menu"
-import { connect } from "react-redux"
-import { DRAWER_TOGGLED } from "../constants"
-import { withStyles } from "@material-ui/core/styles"
+import React from 'react'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
+import IconButton from '@material-ui/core/IconButton'
+import MenuIcon from '@material-ui/icons/Menu'
+import { ChevronLeft } from '@material-ui/icons'
+import { connect } from 'react-redux'
+import { DRAWER_TOGGLED } from '../constants'
+import { withStyles } from '@material-ui/core/styles'
 
 const styles = theme => ({
   root: {
-    width: "100%"
+    width: '100%'
   },
   flex: {
     flex: 1
@@ -32,14 +33,25 @@ const MenuAppBar = props => {
     <div className={classes.root}>
       <AppBar position="fixed">
         <Toolbar>
-          <IconButton
-            className={classes.firstButton}
-            color="inherit"
-            aria-label="Menu"
-            onClick={props.toggleDrawer}
-          >
-            <MenuIcon />
-          </IconButton>
+          <React.Fragment>
+            {props.backArrow ? (
+              <IconButton onClick={e => props.history.goBack()}>
+                <ChevronLeft
+                  className={classes.firstButton}
+                  style={{ fontSize: '30', color: 'white' }}
+                />
+              </IconButton>
+            ) : (
+              <IconButton
+                className={classes.firstButton}
+                color="inherit"
+                aria-label="Menu"
+                onClick={props.toggleDrawer}
+              >
+                <MenuIcon />
+              </IconButton>
+            )}
+          </React.Fragment>
           <Typography variant="title" color="inherit" className={classes.flex}>
             {props.title}
           </Typography>
