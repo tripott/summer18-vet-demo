@@ -5,6 +5,7 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import HomeIcon from '@material-ui/icons/Home'
+import InboxIcon from '@material-ui/icons/Inbox'
 import StarIcon from '@material-ui/icons/Star'
 import DraftsIcon from '@material-ui/icons/Drafts'
 import { Link } from 'react-router-dom'
@@ -21,9 +22,19 @@ const VeteranListItems = (
         <ListItemText primary="Home" />
       </ListItem>
     </Link>
+
     <Link to="/categories" className="router-link">
       <ListItem button>
         <ListItemText primary="Categories" />
+        </ListItem>
+    </Link>
+
+    <Link to="/resources" className="router-link">
+      <ListItem button>
+        <ListItemIcon>
+          <InboxIcon />
+        </ListItemIcon>
+        <ListItemText primary="Resources" />
       </ListItem>
     </Link>
   </div>

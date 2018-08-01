@@ -9,6 +9,7 @@ const resources = require('./routes/resources')
 const categories = require('./routes/categories')
 
 app.use(bodyParser.json())
+app.use(cors({ credentials: true }))
 
 app.use(cors({ credentials: true }))
 

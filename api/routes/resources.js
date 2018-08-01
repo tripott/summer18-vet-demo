@@ -38,6 +38,7 @@ const resourcesRoutes = app => {
   app.get('/', (req, res) => res.send('Welcome to the VET API'))
 
   app.get('/resources', (req, res, next) => {
+    console.log('in resources route')
     // console.log("inside server.js hit /resources route")
     const query = pathOr('', ['query', 'filter'], req)
     //console.log("query", query)
