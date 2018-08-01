@@ -1,13 +1,13 @@
-require("dotenv").config();
-const PouchDB = require("pouchdb-core");
-PouchDB.plugin(require("pouchdb-adapter-http"));
+require("dotenv").config()
+const PouchDB = require("pouchdb-core")
+PouchDB.plugin(require("pouchdb-adapter-http"))
 
-const COUCHDB_SERVER = process.env.COUCHDB_SERVER;
-const COUCHDB_DBNAME = process.env.COUCHDB_DBNAME;
-const DB_URL = `${COUCHDB_SERVER}${COUCHDB_DBNAME}`;
-console.log("HERE", COUCHDB_SERVER);
+const COUCHDB_SERVER = process.env.COUCHDB_SERVER
+const COUCHDB_DBNAME = process.env.COUCHDB_DBNAME
+const DB_URL = `${COUCHDB_SERVER}${COUCHDB_DBNAME}`
+console.log("HERE", COUCHDB_SERVER)
 
-const db = new PouchDB(DB_URL);
+const db = new PouchDB(DB_URL)
 
 db.bulkDocs([
   {
@@ -1139,7 +1139,15 @@ db.bulkDocs([
     ],
     rank: null,
     faq: []
+  },
+  {
+    _id: "event_veteran-bike-week",
+    type: "event",
+    name: "Veteran Bike Week",
+    shortDesc: "Ride from Myrtle Beach to Hilton Head",
+    primaryPhone: "843-727-4525",
+    eventDateTime: "2018-08-04T08:00:00-05:00"
   }
 ])
   .then(result => console.log("success", JSON.stringify(result, null, 2)))
-  .catch(err => console.log("err", err));
+  .catch(err => console.log("err", err))
