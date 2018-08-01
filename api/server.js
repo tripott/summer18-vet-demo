@@ -1,24 +1,24 @@
-require('dotenv').config()
+require("dotenv").config()
 const PORT = process.env.PORT
-const app = require('express')()
-
-const bodyParser = require('body-parser')
-
-const resources = require('./routes/resources')
-const categories = require('./routes/categories')
+const app = require("express")()
+const bodyParser = require("body-parser")
+const resources = require("./routes/resources")
+const categories = require("./routes/categories")
+const events = require("./routes/events")
 
 app.use(bodyParser.json())
 
 resources(app)
 categories(app)
+events(app)
 
 app.use((err, req, res, next) => {
   res.status(err.status || 500).send(err.message)
 })
 
 app.use((err, req, res, next) => {
-  console.log('error', err)
+  console.log("error", err)
   next(err)
 })
 
-app.listen(PORT || 5000, () => console.log('UP on ', PORT || 5000))
+app.listen(PORT || 5000, () => console.log("UP on ", PORT || 5000))

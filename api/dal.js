@@ -1,5 +1,5 @@
-const PouchDB = require('pouchdb-core')
-PouchDB.plugin(require('pouchdb-adapter-http'))
+const PouchDB = require("pouchdb-core")
+PouchDB.plugin(require("pouchdb-adapter-http"))
 const {
   map,
   prop,
@@ -11,28 +11,28 @@ const {
   propEq,
   propOr,
   contains
-} = require('ramda')
+} = require("ramda")
 const COUCHDB_SERVER = process.env.COUCHDB_SERVER
 const COUCHDB_DBNAME = process.env.COUCHDB_DBNAME
 const DB_URL = `${COUCHDB_SERVER}${COUCHDB_DBNAME}`
 
 const db = new PouchDB(DB_URL)
-const { getAllDocs } = require('./dal-helper')
-const pkGenResource = require('./lib/pkGen-resource')
-const pkGen = require('./library/pkGen')
+const { getAllDocs } = require("./dal-helper")
+const pkGenResource = require("./lib/pkGen-resource")
+const pkGen = require("./library/pkGen")
 
 const getResources = query => {
-  const [key, value] = not(isEmpty(query)) ? split(':', query) : ['', '']
+  const [key, value] = not(isEmpty(query)) ? split(":", query) : ["", ""]
   return getAllDocs(db, {
     include_docs: true,
-    startkey: 'resource_',
-    endkey: 'resource_\ufff0'
+    startkey: "resource_",
+    endkey: "resource_\ufff0"
   }).then(
     resources =>
       isEmpty(query)
         ? resources
         : filter(
-            resource => contains(value, propOr('', key, resource)),
+            resource => contains(value, propOr("", key, resource)),
             resources
           )
   )
@@ -44,7 +44,7 @@ const postResource = resource => {
   //console.log(JSON.stringify(resource))
   const modifiedResource = merge(resource, {
     _id: pkGenResource(resource),
-    type: 'resource'
+    type: "resource"
   })
   return db.put(modifiedResource)
 }
@@ -56,18 +56,18 @@ const putResource = resource => {
 const deleteResource = resource => db.remove(resource)
 
 const getCategories = query => {
-  const [key, value] = not(isEmpty(query)) ? split(':', query) : ['', '']
-  console.log(key, value)
+  const [key, value] = not(isEmpty(query)) ? split(":", query) : ["", ""]
+
   return getAllDocs(db, {
     include_docs: true,
-    startkey: 'category_',
-    endkey: 'category_\ufff0'
+    startkey: "category_",
+    endkey: "category_\ufff0"
   }).then(
     categories =>
       isEmpty(query)
         ? categories
         : filter(
-            category => contains(value, propOr('', key, category)),
+            category => contains(value, propOr("", key, category)),
             categories
           )
   )
@@ -80,9 +80,9 @@ const updateCategory = id => {
 }
 
 const addCategory = categoryDoc => {
-  const newID = pkGen('category_', prop('name', categoryDoc))
+  const newID = pkGen("category_", prop("name", categoryDoc))
   const newDoc = merge(categoryDoc, {
-    type: 'category',
+    type: "category",
     _id: newID
   })
   return db.put(newDoc)
@@ -90,6 +90,30 @@ const addCategory = categoryDoc => {
 
 const deleteCategory = id => {
   return db.remove(id)
+}
+
+//////////////////////
+//  Veteran Events
+//////////////////////
+
+const getEvents = query =>
+  getAllDocs(db, {
+    include_docs: true,
+    startkey: "event_",
+    endkey: "event_\ufff0"
+  })
+
+const getEvent = id => db.get(id)
+
+const addEvent = doc => {
+  console.log("doc", doc)
+
+  return db.put(
+    merge(doc, {
+      type: "event",
+      _id: pkGen("event_", prop("name", doc))
+    })
+  )
 }
 
 module.exports = {
@@ -102,5 +126,8 @@ module.exports = {
   postResource,
   putResource,
   getResource,
-  deleteResource
+  deleteResource,
+  getEvents,
+  getEvent,
+  addEvent
 }
