@@ -1,8 +1,9 @@
-import React from "react"
-import Typography from "@material-ui/core/Typography"
-import Button from "@material-ui/core/Button"
-import withDrawer from "../components/withDrawer"
-import MenuAppBar from "../components/menuAppBar"
+import React from 'react'
+import Typography from '@material-ui/core/Typography'
+import Button from '@material-ui/core/Button'
+import withDrawer from '../components/withDrawer'
+import MenuAppBar from '../components/menuAppBar'
+import { Link } from 'react-router-dom'
 
 const Home = () => (
   <div
@@ -19,7 +20,12 @@ const Home = () => (
         </Typography>
       </div>
       <div style={{ paddingTop: 12 }}>
-        <Button variant="raised" color="primary">
+        <Button
+          component={Link}
+          to="/categories"
+          variant="raised"
+          color="primary"
+        >
           Categories
         </Button>
       </div>

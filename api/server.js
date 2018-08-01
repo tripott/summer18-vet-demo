@@ -1,6 +1,7 @@
 require('dotenv').config()
 const PORT = process.env.PORT
 const app = require('express')()
+const cors = require('cors')
 
 const bodyParser = require('body-parser')
 
@@ -8,6 +9,8 @@ const resources = require('./routes/resources')
 const categories = require('./routes/categories')
 
 app.use(bodyParser.json())
+
+app.use(cors({ credentials: true }))
 
 resources(app)
 categories(app)
