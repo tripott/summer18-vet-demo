@@ -18,8 +18,7 @@ const DB_URL = `${COUCHDB_SERVER}${COUCHDB_DBNAME}`
 
 const db = new PouchDB(DB_URL)
 const { getAllDocs } = require('./dal-helper')
-const pkGenResource = require('./lib/pkGen-resource')
-const pkGen = require('./library/pkGen')
+const pkGen = require('./lib/pkGen')
 
 const getResources = query => {
   const [key, value] = not(isEmpty(query)) ? split(':', query) : ['', '']
@@ -43,7 +42,7 @@ const getResource = id => db.get(id)
 const postResource = resource => {
   //console.log(JSON.stringify(resource))
   const modifiedResource = merge(resource, {
-    _id: pkGenResource(resource),
+    _id: pkGen('_', resource.name),
     type: 'resource'
   })
   return db.put(modifiedResource)

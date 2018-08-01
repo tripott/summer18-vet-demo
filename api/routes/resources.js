@@ -8,9 +8,9 @@ const {
 } = require('../dal')
 const bodyParser = require('body-parser')
 const { propOr, isEmpty, not, concat, pathOr } = require('ramda')
-const checkReqFields = require('../lib/check-required-fields')
-const missingFieldMsg = require('../lib/missing-field-msg')
-const cleanObj = require('../lib/clean-object')
+const checkReqFields = require('../lib/checkRequiredCategoryFields')
+const missingFieldMsg = require('../lib/missingFieldMsg')
+const cleanObj = require('../lib/cleanObj')
 
 const reqFields = [
   'categoryId',
